@@ -45,31 +45,66 @@ void main() {
 /* Add other Implementation File Code Here */
 
 void print_array(unsigned char *arr_name, int len){
-  
+  printf("{ ");
+  for(int l=0 ; l<len ; l++){
+    printf("%d, ", *(arr_name+l));
+  } 
+  printf("}\n");
 }
 
 unsigned char *sort_array(unsigned char *arr_name, int len){
-  
+  unsigned char z;
+  for(int l1=0 ; l1<len ; l1++){
+    for(int l2=1 ; l2<len ; l2++){
+      if(*(arr_name+l2-1)<*(arr_name+l2)){
+        z = *(arr_name+l2-1);
+        *(arr_name+l2-1) = *(arr_name+l2);
+        *(arr_name+l2) = z;
+      }
+    }
+  }
+  return arr_name;
 }
 
 unsigned char find_median(unsigned char* arr_name, int len){
-  
+  unsigned char *sorted_arr = sort_array(arr_name, len);
+  unsigned char median = *(sorted_arr+len/2);
+  return median;
 }
 
 unsigned char find_maximum(unsigned char *arr_name, int len){
-  
+  unsigned char max = *(arr_name);
+  for(int i=0 ; i<len ; i++)
+    if(max<*(arr_name+i)){
+      max = *(arr_name+i);
+      continue;
+    }
+  return max;
 }
 
 unsigned char find_minimum(unsigned char *arr_name, int len){
-  
+  unsigned char min = *(sort_array(arr_name, len)+len-1);
+  return min;
 }
 
 float find_mean(unsigned char *arr_name, int len){
-  
+  float mean = 0;
+  for(int i=0 ; i<len ; i++){
+    mean += *(arr_name+i);
+  }
+  return mean/len;
 }
 
 void print_statistics(unsigned char *arr_name){
-  
+  unsigned char *test = arr_name;
+  printf("Original array\n");	
+  print_array(test, SIZE);
+  printf("Sorted array\n");
+  print_array(sort_array(test, SIZE), SIZE);
+  printf("the median = %d\n",find_median(test,SIZE));
+  printf("the maximum = %d\n",find_maximum(test,SIZE));
+  printf("the minimum = %d\n",find_minimum(test,SIZE));
+  printf("the mean = %f\n",find_mean(test,SIZE));
 }
 
 
